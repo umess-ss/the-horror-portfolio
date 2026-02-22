@@ -1,0 +1,108 @@
+.heroWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 90vh;
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Radial fire glow behind the hero */
+.heroWrapper::before {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 26, 26, 0.1) 0%, rgba(204, 17, 0, 0.06) 40%, transparent 70%);
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    animation: hero-pulse 8s ease-in-out infinite;
+}
+
+/* Dark threat lines */
+.heroWrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(135deg, transparent 48%, rgba(204, 17, 0, 0.02) 49%, rgba(204, 17, 0, 0.02) 51%, transparent 52%),
+        linear-gradient(225deg, transparent 48%, rgba(139, 0, 0, 0.015) 49%, rgba(139, 0, 0, 0.015) 51%, transparent 52%);
+    background-size: 50px 50px;
+    pointer-events: none;
+}
+
+.gradientTitle {
+    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 50%, #ff4400 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+    .gradientTitle {
+        font-size: 4.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .gradientTitle {
+        font-size: 5.5rem;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .gradientTitle {
+        font-size: 2.2rem;
+    }
+
+    .heroWrapper::before {
+        width: 350px;
+        height: 350px;
+    }
+
+    .heroWrapper {
+        min-height: 85vh;
+        padding: 0 16px;
+    }
+}
+
+@keyframes hero-pulse {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0px) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(-30px) scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
