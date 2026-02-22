@@ -7,6 +7,10 @@ import Projects from './pages/Projects';
 import CometCanvas from './components/common/CometCanvas';
 import ClickRipple from './components/common/ClickRipple';
 import AutoThemeFlip from './components/common/AutoThemeFlip';
+import LightningBolt from './components/common/LightningBolt';
+import WaveEffects from './components/common/WaveEffects';
+import CodeEnrage from './components/common/CodeEnrage';
+import SurprisePopups from './components/common/SurprisePopups';
 
 function Layout() {
     return (
@@ -23,8 +27,20 @@ function Layout() {
             {/* Comet animation canvas */}
             <CometCanvas />
 
-            {/* Click ripple interactivity */}
+            {/* Multi-color lightning */}
+            <LightningBolt />
+
+            {/* Wave effects (longitudinal, air, frequency, liquidity) */}
+            <WaveEffects />
+
+            {/* Auto code enrage popups */}
+            <CodeEnrage />
+
+            {/* Click ripple interactivity — random effects */}
             <ClickRipple />
+
+            {/* Interactive surprise popups */}
+            <SurprisePopups />
 
             {/* Theme toggle */}
             <AutoThemeFlip />

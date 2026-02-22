@@ -1,33 +1,86 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FIRE_COLORS = ['#ff1a1a', '#cc0000', '#ff4400', '#ff6600', '#8b0000', '#ff2200'];
+// Multi-color rainbow/aurora lightning palette
+const LIGHTNING_PALETTES = [
+    ['#e879f9', '#d946ef', '#c026d3', '#a855f7'], // Pink-Purple
+    ['#22d3ee', '#06b6d4', '#0891b2', '#67e8f9'], // Cyan
+    ['#a78bfa', '#8b5cf6', '#7c3aed', '#c4b5fd'], // Violet
+    ['#34d399', '#10b981', '#059669', '#6ee7b7'], // Emerald
+    ['#fbbf24', '#f59e0b', '#d97706', '#fcd34d'], // Amber
+    ['#f472b6', '#ec4899', '#db2777', '#f9a8d4'], // Pink
+    ['#818cf8', '#6366f1', '#4f46e5', '#a5b4fc'], // Indigo
+    ['#fb923c', '#f97316', '#ea580c', '#fdba74'], // Orange
+    ['#2dd4bf', '#14b8a6', '#0d9488', '#5eead4'], // Teal
+    ['#e879f9', '#22d3ee', '#34d399', '#fbbf24'], // Rainbow mix
+];
 
 const LightningBolt = () => {
     const [bolts, setBolts] = useState([]);
     const svgRef = useRef(null);
+    const gradientIdRef = useRef(0);
 
-    const createBolt = useCallback(() => {
+    const createBolt = useCallback((options = {}) => {
         const id = Date.now() + Math.random();
-        const x = Math.random() * 100;
-        const color = FIRE_COLORS[Math.floor(Math.random() * FIRE_COLORS.length)];
+        const palette = LIGHTNING_PALETTES[Math.floor(Math.random() * LIGHTNING_PALETTES.length)];
+        const mainColor = palette[Math.floor(Math.random() * palette.length)];
+        const glowColor = palette[0];
         const segments = [];
-        let currentX = x;
-        let currentY = 0;
-        const segCount = 8 + Math.floor(Math.random() * 6);
+
+        // Direction: 0=top-down, 1=left-right, 2=right-left, 3=diagonal
+        const direction = options.direction ?? Math.floor(Math.random() * 4);
+        let currentX, currentY;
+
+        if (direction === 0) {
+            currentX = Math.random() * 100;
+            currentY = 0;
+        } else if (direction === 1) {
+            currentX = 0;
+            currentY = 10 + Math.random() * 80;
+        } else if (direction === 2) {
+            currentX = 100;
+            currentY = 10 + Math.random() * 80;
+        } else {
+            currentX = Math.random() > 0.5 ? 0 : 100;
+            currentY = Math.random() * 30;
+        }
+
+        const segCount = 8 + Math.floor(Math.random() * 8);
 
         for (let i = 0; i < segCount; i++) {
-            const nextX = currentX + (Math.random() - 0.5) * 14;
-            const nextY = currentY + 4 + Math.random() * 12;
-            segments.push({ x1: currentX, y1: currentY, x2: nextX, y2: nextY });
+            let nextX, nextY;
 
-            // Fire branching — 25% chance
-            if (Math.random() > 0.75 && i > 2) {
-                const branchLen = 1 + Math.floor(Math.random() * 3);
+            if (direction === 0) {
+                nextX = currentX + (Math.random() - 0.5) * 16;
+                nextY = currentY + 4 + Math.random() * 12;
+            } else if (direction === 1) {
+                nextX = currentX + 4 + Math.random() * 10;
+                nextY = currentY + (Math.random() - 0.5) * 14;
+            } else if (direction === 2) {
+                nextX = currentX - 4 - Math.random() * 10;
+                nextY = currentY + (Math.random() - 0.5) * 14;
+            } else {
+                nextX = currentX + (currentX < 50 ? 1 : -1) * (3 + Math.random() * 8);
+                nextY = currentY + 3 + Math.random() * 8;
+            }
+
+            const branchColor = palette[Math.floor(Math.random() * palette.length)];
+            segments.push({
+                x1: currentX, y1: currentY, x2: nextX, y2: nextY,
+                color: mainColor, branchColor
+            });
+
+            // Branching — 30% chance with multi-color branches
+            if (Math.random() > 0.7 && i > 1) {
+                const branchLen = 1 + Math.floor(Math.random() * 4);
                 let bx = nextX, by = nextY;
                 for (let j = 0; j < branchLen; j++) {
-                    const bnx = bx + (Math.random() - 0.5) * 18;
-                    const bny = by + 2 + Math.random() * 5;
-                    segments.push({ x1: bx, y1: by, x2: bnx, y2: bny, branch: true });
+                    const bc = palette[Math.floor(Math.random() * palette.length)];
+                    const bnx = bx + (Math.random() - 0.5) * 20;
+                    const bny = by + (direction === 0 ? (2 + Math.random() * 5) : (Math.random() - 0.5) * 10);
+                    segments.push({
+                        x1: bx, y1: by, x2: bnx, y2: bny,
+                        branch: true, color: bc, branchColor: bc
+                    });
                     bx = bnx;
                     by = bny;
                 }
@@ -37,47 +90,61 @@ const LightningBolt = () => {
             currentY = nextY;
         }
 
-        setBolts(prev => [...prev, { id, segments, color }]);
+        const gradId = `lg-${gradientIdRef.current++}`;
+        setBolts(prev => [...prev, { id, segments, mainColor, glowColor, palette, gradId }]);
 
-        // Ominous red flash
+        // Multi-color flash
         const overlay = document.getElementById('horror-flash');
         if (overlay) {
-            overlay.style.opacity = '0.15';
-            setTimeout(() => { overlay.style.opacity = '0'; }, 80);
+            overlay.style.background = `radial-gradient(ellipse at 50% 0%, ${mainColor}44 0%, ${glowColor}22 40%, transparent 70%)`;
+            overlay.style.opacity = '0.12';
+            setTimeout(() => { overlay.style.opacity = '0'; }, 100);
         }
 
         // Remove bolt
         setTimeout(() => {
             setBolts(prev => prev.filter(b => b.id !== id));
-        }, 120 + Math.random() * 80);
+        }, 150 + Math.random() * 100);
     }, []);
 
     useEffect(() => {
-        // Slower intervals for less lag
         const interval1 = setInterval(() => {
             if (Math.random() > 0.5) createBolt();
-        }, 2500);
+        }, 2200);
 
         const interval2 = setInterval(() => {
-            if (Math.random() > 0.6) createBolt();
-        }, 3500);
+            if (Math.random() > 0.55) createBolt({ direction: 1 });
+        }, 3800);
 
-        // Occasional double strike
         const interval3 = setInterval(() => {
-            createBolt();
-            setTimeout(() => createBolt(), 60);
-        }, 6000);
+            if (Math.random() > 0.6) createBolt({ direction: 2 });
+        }, 4200);
+
+        // Chain lightning: rapid multi-bolt
+        const interval4 = setInterval(() => {
+            const dir = Math.floor(Math.random() * 4);
+            createBolt({ direction: dir });
+            setTimeout(() => createBolt({ direction: dir }), 50);
+            setTimeout(() => createBolt({ direction: (dir + 1) % 4 }), 100);
+        }, 7000);
+
+        // Diagonal bolts
+        const interval5 = setInterval(() => {
+            if (Math.random() > 0.65) createBolt({ direction: 3 });
+        }, 5000);
 
         return () => {
             clearInterval(interval1);
             clearInterval(interval2);
             clearInterval(interval3);
+            clearInterval(interval4);
+            clearInterval(interval5);
         };
     }, [createBolt]);
 
     return (
         <>
-            {/* Red flash overlay */}
+            {/* Color flash overlay */}
             <div
                 id="horror-flash"
                 style={{
@@ -85,9 +152,8 @@ const LightningBolt = () => {
                     inset: 0,
                     zIndex: 1,
                     pointerEvents: 'none',
-                    background: 'radial-gradient(ellipse at 50% 0%, rgba(255,20,20,0.4) 0%, rgba(139,0,0,0.2) 40%, transparent 70%)',
                     opacity: 0,
-                    transition: 'opacity 0.06s ease-out',
+                    transition: 'opacity 0.08s ease-out',
                 }}
             />
 
@@ -105,25 +171,16 @@ const LightningBolt = () => {
                 preserveAspectRatio="none"
             >
                 <defs>
-                    <filter id="fire-glow">
-                        <feGaussianBlur stdDeviation="1" result="blur" />
-                        <feColorMatrix
-                            type="matrix"
-                            values="1 0 0 0 0.3
-                                    0 0.2 0 0 0
-                                    0 0 0.1 0 0
-                                    0 0 0 1 0"
-                            in="blur"
-                            result="colored"
-                        />
+                    <filter id="rainbow-glow">
+                        <feGaussianBlur stdDeviation="1.2" result="blur" />
                         <feMerge>
-                            <feMergeNode in="colored" />
+                            <feMergeNode in="blur" />
                             <feMergeNode in="blur" />
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
-                    <filter id="fire-glow-branch">
-                        <feGaussianBlur stdDeviation="0.5" result="blur" />
+                    <filter id="branch-glow">
+                        <feGaussianBlur stdDeviation="0.6" result="blur" />
                         <feMerge>
                             <feMergeNode in="blur" />
                             <feMergeNode in="SourceGraphic" />
@@ -133,17 +190,32 @@ const LightningBolt = () => {
                 {bolts.map(bolt => (
                     <g key={bolt.id}>
                         {bolt.segments.map((seg, i) => (
-                            <line
-                                key={i}
-                                x1={seg.x1}
-                                y1={seg.y1}
-                                x2={seg.x2}
-                                y2={seg.y2}
-                                stroke={bolt.color}
-                                strokeWidth={seg.branch ? '0.06' : '0.18'}
-                                opacity={seg.branch ? 0.5 : 0.9}
-                                filter={seg.branch ? 'url(#fire-glow-branch)' : 'url(#fire-glow)'}
-                            />
+                            <g key={i}>
+                                {/* Outer glow line */}
+                                <line
+                                    x1={seg.x1}
+                                    y1={seg.y1}
+                                    x2={seg.x2}
+                                    y2={seg.y2}
+                                    stroke={seg.color}
+                                    strokeWidth={seg.branch ? '0.15' : '0.4'}
+                                    opacity={seg.branch ? 0.3 : 0.5}
+                                    filter="url(#rainbow-glow)"
+                                    strokeLinecap="round"
+                                />
+                                {/* Core line */}
+                                <line
+                                    x1={seg.x1}
+                                    y1={seg.y1}
+                                    x2={seg.x2}
+                                    y2={seg.y2}
+                                    stroke={seg.branch ? seg.branchColor : '#fff'}
+                                    strokeWidth={seg.branch ? '0.05' : '0.12'}
+                                    opacity={seg.branch ? 0.6 : 0.95}
+                                    filter={seg.branch ? 'url(#branch-glow)' : undefined}
+                                    strokeLinecap="round"
+                                />
+                            </g>
                         ))}
                     </g>
                 ))}

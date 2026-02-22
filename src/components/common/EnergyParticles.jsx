@@ -15,23 +15,31 @@ const EnergyParticles = () => {
         resize();
         window.addEventListener('resize', resize);
 
-        // Horror-themed ember/ash particles
-        const colors = ['#ff1a1a', '#cc0000', '#ff4400', '#8b0000', '#4a0000', '#ff2200'];
+        // Multi-color aurora particles
+        const colors = [
+            '#e879f9', '#a78bfa', '#22d3ee', '#34d399', '#fbbf24',
+            '#f472b6', '#818cf8', '#67e8f9', '#6ee7b7', '#fb923c',
+            '#c084fc', '#2dd4bf',
+        ];
         const particles = [];
-        const count = window.innerWidth < 768 ? 25 : 40; // Fewer on mobile
+        const count = window.innerWidth < 768 ? 20 : 35;
 
         for (let i = 0; i < count; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: -(Math.random() * 0.5 + 0.1), // float upward like embers
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: -(Math.random() * 0.4 + 0.08),
                 size: Math.random() * 2.5 + 0.5,
                 color: colors[Math.floor(Math.random() * colors.length)],
-                alpha: Math.random() * 0.5 + 0.1,
+                alpha: Math.random() * 0.4 + 0.08,
                 pulse: Math.random() * Math.PI * 2,
                 pulseSpeed: Math.random() * 0.02 + 0.005,
-                flicker: Math.random() > 0.7, // some particles flicker
+                flicker: Math.random() > 0.7,
+                // Color shifting
+                colorIndex: Math.floor(Math.random() * colors.length),
+                colorTimer: Math.random() * 100,
+                colorSpeed: 0.005 + Math.random() * 0.01,
             });
         }
 
@@ -43,8 +51,15 @@ const EnergyParticles = () => {
                 p.x += p.vx;
                 p.y += p.vy;
                 p.pulse += p.pulseSpeed;
+                p.colorTimer += p.colorSpeed;
 
-                // Flicker effect for some embers
+                // Slowly shift colors
+                if (p.colorTimer > 1) {
+                    p.colorTimer = 0;
+                    p.colorIndex = (p.colorIndex + 1) % colors.length;
+                    p.color = colors[p.colorIndex];
+                }
+
                 let currentAlpha = p.alpha * (0.5 + 0.5 * Math.sin(p.pulse));
                 if (p.flicker) {
                     currentAlpha *= Math.random() > 0.1 ? 1 : 0.2;
@@ -58,7 +73,7 @@ const EnergyParticles = () => {
 
                 // Glow
                 ctx.save();
-                ctx.globalAlpha = currentAlpha * 0.25;
+                ctx.globalAlpha = currentAlpha * 0.2;
                 ctx.shadowBlur = 15;
                 ctx.shadowColor = p.color;
                 ctx.fillStyle = p.color;
@@ -96,7 +111,7 @@ const EnergyParticles = () => {
                 inset: 0,
                 pointerEvents: 'none',
                 zIndex: 2,
-                opacity: 0.5,
+                opacity: 0.45,
             }}
         />
     );
