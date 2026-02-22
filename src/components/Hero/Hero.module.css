@@ -10,14 +10,14 @@
     overflow: hidden;
 }
 
-/* Radial fire glow behind the hero */
+/* Aurora radial glow behind hero */
 .heroWrapper::before {
     content: '';
     position: absolute;
     width: 700px;
     height: 700px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 26, 26, 0.1) 0%, rgba(204, 17, 0, 0.06) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(232, 121, 249, 0.08) 0%, rgba(167, 139, 250, 0.05) 40%, transparent 70%);
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
@@ -25,20 +25,20 @@
     animation: hero-pulse 8s ease-in-out infinite;
 }
 
-/* Dark threat lines */
+/* Subtle grid lines */
 .heroWrapper::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(135deg, transparent 48%, rgba(204, 17, 0, 0.02) 49%, rgba(204, 17, 0, 0.02) 51%, transparent 52%),
-        linear-gradient(225deg, transparent 48%, rgba(139, 0, 0, 0.015) 49%, rgba(139, 0, 0, 0.015) 51%, transparent 52%);
-    background-size: 50px 50px;
+        linear-gradient(135deg, transparent 48%, rgba(167, 139, 250, 0.015) 49%, rgba(167, 139, 250, 0.015) 51%, transparent 52%),
+        linear-gradient(225deg, transparent 48%, rgba(232, 121, 249, 0.01) 49%, rgba(232, 121, 249, 0.01) 51%, transparent 52%);
+    background-size: 60px 60px;
     pointer-events: none;
 }
 
 .gradientTitle {
-    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 50%, #ff4400 100%);
+    background: linear-gradient(135deg, #e879f9 0%, #a78bfa 40%, #22d3ee 80%, #34d399 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -46,8 +46,8 @@
     font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1.1;
-    background-size: 200% 200%;
-    animation: gradient-shift 4s ease-in-out infinite;
+    background-size: 300% 300%;
+    animation: gradient-shift 8s ease-in-out infinite;
 }
 
 @media (min-width: 768px) {

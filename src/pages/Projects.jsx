@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import DraggableCard from '../components/common/DraggableCard';
 
 const ALL_PROJECTS = [
     {
@@ -9,7 +8,7 @@ const ALL_PROJECTS = [
         category: 'React',
         tech: ['React', 'TailwindCSS', 'Chart.js', 'REST API'],
         description: 'A comprehensive dashboard for tracking sales, inventory, and analytics. Real-time data visualization with interactive charts and responsive design.',
-        image: 'https://placehold.co/600x400/0a0520/ff2d95?text=E-Commerce',
+        image: 'https://placehold.co/600x400/0a0a1a/e879f9?text=E-Commerce',
         github: '#',
         live: '#',
         featured: true,
@@ -20,7 +19,7 @@ const ALL_PROJECTS = [
         category: 'Node',
         tech: ['Node.js', 'Express', 'Redis', 'Docker'],
         description: 'Express middleware to prevent DDoS attacks using Redis-backed rate limiting. Configurable windows, IP whitelisting, and distributed architecture support.',
-        image: 'https://placehold.co/600x400/0a0520/00f7ff?text=API+Limiter',
+        image: 'https://placehold.co/600x400/0a0a1a/22d3ee?text=API+Limiter',
         github: '#',
         featured: false,
     },
@@ -29,8 +28,8 @@ const ALL_PROJECTS = [
         title: 'Portfolio Website',
         category: 'React',
         tech: ['React', 'Vite', 'TailwindCSS', 'Framer Motion'],
-        description: 'This very portfolio — built with anime energy, phonk aesthetics, and neon cyberpunk vibes. Draggable components, lightning effects, and AI-powered design.',
-        image: 'https://placehold.co/600x400/0a0520/a855f7?text=Portfolio',
+        description: 'This very portfolio — built with anime energy, aurora aesthetics, and cosmic vibes. Comet animations, interactive particles, and dynamic design.',
+        image: 'https://placehold.co/600x400/0a0a1a/a78bfa?text=Portfolio',
         github: 'https://github.com/umess-ss',
         featured: true,
     },
@@ -40,7 +39,7 @@ const ALL_PROJECTS = [
         category: 'Full Stack',
         tech: ['React', 'Django', 'PostgreSQL', 'JWT Auth'],
         description: 'Community complaint management platform with real-time tracking, admin panel, Google Maps integration, and role-based access control.',
-        image: 'https://placehold.co/600x400/0a0520/39ff14?text=HamroAwaj',
+        image: 'https://placehold.co/600x400/0a0a1a/34d399?text=HamroAwaj',
         github: '#',
         featured: true,
     },
@@ -50,7 +49,7 @@ const ALL_PROJECTS = [
         category: 'Flutter',
         tech: ['Flutter', 'Supabase', 'Gemini AI', 'Real-time'],
         description: 'Multi-agent AI dashboard with real-time streaming, human-in-the-loop approvals, and edge functions powered by Google Gemini.',
-        image: 'https://placehold.co/600x400/0a0520/ffd700?text=AI+Dashboard',
+        image: 'https://placehold.co/600x400/0a0a1a/fbbf24?text=AI+Dashboard',
         github: 'https://github.com/umess-ss/agentic-enterprice-dashboard',
         featured: true,
     },
@@ -60,7 +59,7 @@ const ALL_PROJECTS = [
         category: 'AI/ML',
         tech: ['Python', 'PyTorch', 'Stable Diffusion', 'FastAPI'],
         description: 'Generative AI pipeline using diffusion models for image creation. Fine-tuned on custom datasets with prompt engineering and LoRA adapters.',
-        image: 'https://placehold.co/600x400/0a0520/ff6b35?text=AI+Gen',
+        image: 'https://placehold.co/600x400/0a0a1a/fb923c?text=AI+Gen',
         github: '#',
         featured: false,
     },
@@ -70,7 +69,6 @@ const CATEGORIES = ['All', 'React', 'Node', 'Full Stack', 'Flutter', 'AI/ML'];
 
 const Projects = () => {
     const [activeCategory, setActiveCategory] = useState('All');
-    const [hoveredId, setHoveredId] = useState(null);
 
     const filtered = activeCategory === 'All'
         ? ALL_PROJECTS
@@ -87,7 +85,7 @@ const Projects = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        ◈ Digital Creations ◈
+                        ✦ Digital Creations ✦
                     </motion.span>
                     <motion.h1
                         className="text-4xl md:text-6xl font-cyber font-black gradient-text-anime mb-6"
@@ -103,8 +101,8 @@ const Projects = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
                     >
-                        Each project is a lightning strike — a moment where the force of imagination
-                        meets the precision of engineering. From AI beasts to full-stack fortresses.
+                        Each project is a spark of imagination — a moment where creativity
+                        meets the precision of engineering. From AI systems to full-stack platforms.
                     </motion.p>
                 </div>
 
@@ -120,8 +118,8 @@ const Projects = () => {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-5 py-2 font-cyber text-xs tracking-[2px] uppercase rounded-lg border transition-all duration-300 ${activeCategory === cat
-                                    ? 'border-neon-pink text-neon-pink bg-neon-pink/10 shadow-[0_0_15px_rgba(255,45,149,0.3)]'
-                                    : 'border-neon-purple/20 text-content/40 hover:border-neon-purple/50 hover:text-content/70'
+                                ? 'border-neon-pink text-neon-pink bg-neon-pink/10 shadow-[0_0_15px_rgba(232,121,249,0.2)]'
+                                : 'border-neon-purple/20 text-content/40 hover:border-neon-purple/50 hover:text-content/70'
                                 }`}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -142,11 +140,14 @@ const Projects = () => {
                         transition={{ duration: 0.3 }}
                     >
                         {filtered.map((project, index) => (
-                            <DraggableCard key={project.id} index={index}>
+                            <motion.div
+                                key={project.id}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                            >
                                 <motion.div
                                     className="neon-card overflow-hidden group relative"
-                                    onHoverStart={() => setHoveredId(project.id)}
-                                    onHoverEnd={() => setHoveredId(null)}
                                     whileHover={{ y: -6 }}
                                 >
                                     {/* Featured badge */}
@@ -165,7 +166,6 @@ const Projects = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
 
-                                        {/* Category */}
                                         <span className="absolute top-3 right-3 px-3 py-1 text-[10px] font-cyber tracking-[2px] uppercase rounded-full border border-neon-cyan/30 text-neon-cyan bg-void/80 backdrop-blur-sm">
                                             {project.category}
                                         </span>
@@ -195,7 +195,7 @@ const Projects = () => {
                                                 href={project.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex-1 py-2.5 border border-neon-purple/30 text-neon-purple font-cyber text-xs tracking-[2px] uppercase rounded-lg hover:bg-neon-purple/10 hover:border-neon-purple hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-all duration-300 text-center no-underline block"
+                                                className="flex-1 py-2.5 border border-neon-purple/30 text-neon-purple font-cyber text-xs tracking-[2px] uppercase rounded-lg hover:bg-neon-purple/10 hover:border-neon-purple hover:shadow-[0_0_15px_rgba(167,139,250,0.2)] transition-all duration-300 text-center no-underline block"
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
@@ -206,7 +206,7 @@ const Projects = () => {
                                                     href={project.live}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="flex-1 py-2.5 border border-neon-cyan/30 text-neon-cyan font-cyber text-xs tracking-[2px] uppercase rounded-lg hover:bg-neon-cyan/10 hover:border-neon-cyan hover:shadow-[0_0_15px_rgba(0,247,255,0.3)] transition-all duration-300 text-center no-underline block"
+                                                    className="flex-1 py-2.5 border border-neon-cyan/30 text-neon-cyan font-cyber text-xs tracking-[2px] uppercase rounded-lg hover:bg-neon-cyan/10 hover:border-neon-cyan hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] transition-all duration-300 text-center no-underline block"
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                 >
@@ -216,7 +216,7 @@ const Projects = () => {
                                         </div>
                                     </div>
                                 </motion.div>
-                            </DraggableCard>
+                            </motion.div>
                         ))}
                     </motion.div>
                 </AnimatePresence>
@@ -227,7 +227,7 @@ const Projects = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                     >
-                        ◈ No projects found in this dimension ◈
+                        ✦ No projects found in this dimension ✦
                     </motion.p>
                 )}
 

@@ -21,11 +21,11 @@ export default function Footer() {
                         viewport={{ once: true }}
                     >
                         <h2 className="text-3xl font-cyber font-black gradient-text-anime">
-                            ⚡ UMESH.DEV
+                            ✦ UMESH.DEV
                         </h2>
                         <p className="text-content/40 text-sm font-body leading-relaxed max-w-xs">
-                            Full Stack Developer & AI/ML Enthusiast.
-                            Building digital experiences that push the boundaries of what's possible.
+                            Full Stack Developer & AI Enthusiast from Nepal.
+                            Crafting cosmic digital experiences with creativity and code.
                         </p>
                         {/* Status indicator */}
                         <div className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function Footer() {
                 {/* Bottom bar */}
                 <div className="border-t border-neon-purple/10 mt-12 pt-8 text-center">
                     <p className="text-content/20 text-[10px] font-cyber tracking-[3px] uppercase">
-                        © {new Date().getFullYear()} Umesh — Forged in the Neon Codex ⚡
+                        © {new Date().getFullYear()} Umesh — Made with ✦ Aurora Code
                     </p>
                 </div>
             </div>

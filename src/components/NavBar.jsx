@@ -25,7 +25,7 @@ function NavBar() {
                     className="text-xl sm:text-2xl font-cyber font-black gradient-text-anime"
                     whileHover={{ scale: 1.05 }}
                 >
-                    🔥 UMESH
+                    ✦ UMESH
                 </motion.span>
                 <span className="text-[10px] font-cyber text-neon-purple/60 tracking-[4px] uppercase hidden sm:block">
                     .DEV

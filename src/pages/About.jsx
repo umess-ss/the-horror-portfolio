@@ -7,7 +7,7 @@ const TIMELINE = [
         subtitle: 'Building the Future',
         desc: 'Crafting production-ready applications with React, Node.js, Flutter, and AI/ML. Deploying intelligent solutions that bridge the gap between human intuition and machine precision.',
         icon: '🚀',
-        color: '#ff2d95',
+        color: '#e879f9',
     },
     {
         year: '2024',
@@ -15,7 +15,7 @@ const TIMELINE = [
         subtitle: 'Cloud Architecture',
         desc: 'Intensive fellowship mastering Salesforce ecosystem, cloud computing patterns, and enterprise-grade CRM solutions. Architected scalable data models and automated business workflows.',
         icon: '☁️',
-        color: '#00f7ff',
+        color: '#22d3ee',
     },
     {
         year: '2023 — 2024',
@@ -23,7 +23,7 @@ const TIMELINE = [
         subtitle: 'IOE • Paschimanchal Campus',
         desc: 'Deep foundations in signal processing, embedded systems, and digital communications. Bridged hardware knowledge with software engineering to build IoT and edge computing solutions.',
         icon: '⚡',
-        color: '#a855f7',
+        color: '#a78bfa',
     },
     {
         year: '2021',
@@ -31,7 +31,7 @@ const TIMELINE = [
         subtitle: 'Science Stream',
         desc: 'Built strong analytical foundations in physics, chemistry, mathematics, and computer science. Started the coding journey here.',
         icon: '🔬',
-        color: '#39ff14',
+        color: '#34d399',
     },
 ];
 
@@ -48,7 +48,7 @@ const SOFT_SKILLS = [
 ];
 
 const POWER_STATS = [
-    { label: 'Projects Built', value: '15+', icon: '🔥' },
+    { label: 'Projects Built', value: '15+', icon: '✨' },
     { label: 'Technologies', value: '20+', icon: '⚡' },
     { label: 'GitHub Repos', value: '30+', icon: '🐙' },
     { label: 'Coffee Consumed', value: '∞', icon: '☕' },
@@ -66,7 +66,7 @@ const About = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        ◈ The Origin Story ◈
+                        ✦ The Origin Story ✦
                     </motion.span>
                     <motion.h1
                         className="text-4xl md:text-6xl font-cyber font-black gradient-text-anime mb-6"
@@ -83,7 +83,7 @@ const About = () => {
                         transition={{ delay: 0.3 }}
                     >
                         A market-driven full stack developer & AI enthusiast from Nepal,
-                        forging digital experiences with the force of a thousand lightning bolts.
+                        forging digital experiences with creativity and precision.
                         I don't just write code — I engineer digital superpowers.
                     </motion.p>
                 </div>
@@ -100,8 +100,8 @@ const About = () => {
                             key={stat.label}
                             className="neon-card p-6 text-center group"
                             whileHover={{
-                                boxShadow: '0 0 30px rgba(255,45,149,0.3)',
-                                borderColor: '#ff2d95',
+                                boxShadow: '0 0 30px rgba(232,121,249,0.2)',
+                                borderColor: '#e879f9',
                                 y: -4,
                             }}
                             initial={{ opacity: 0, scale: 0.8 }}
@@ -116,7 +116,7 @@ const About = () => {
                     ))}
                 </motion.div>
 
-                {/* AI Philosophy Section */}
+                {/* Philosophy Section */}
                 <motion.div
                     className="neon-card p-8 md:p-12 mb-20 relative overflow-hidden"
                     initial={{ opacity: 0, y: 30 }}
@@ -131,7 +131,7 @@ const About = () => {
                     </h2>
                     <div className="space-y-4 text-content/60 font-body text-base leading-relaxed relative z-10">
                         <p>
-                            In the age of generative AI and diffusion models, I've embraced the beast.
+                            In the age of generative AI and diffusion models, I've embraced the future.
                             From training neural networks to deploying edge functions powered by Gemini,
                             I believe AI isn't just a tool — it's a <span className="text-neon-cyan font-bold">creative superpower</span>.
                         </p>
@@ -139,11 +139,11 @@ const About = () => {
                             I work at the intersection of <span className="text-neon-pink font-bold">human creativity</span> and
                             <span className="text-neon-purple font-bold"> machine intelligence</span> — building applications that
                             learn, adapt, and evolve. Whether it's computer vision, NLP, or recommendation engines,
-                            I bring the absolute classic imagination of anime and the raw energy of phonk to every line of code.
+                            I bring imagination and raw energy to every line of code.
                         </p>
                         <p>
                             The sun rises and sets, day transitions to night, but the code never stops.
-                            Like the lightning that illuminates the dark sky, every project I build captures
+                            Like comets streaking across the night sky, every project I build captures
                             that <span className="text-neon-green font-bold">electrifying moment of breakthrough</span>.
                         </p>
                     </div>
@@ -160,7 +160,6 @@ const About = () => {
                         Journey Timeline
                     </motion.h2>
                     <div className="relative">
-                        {/* Vertical line */}
                         <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-neon-pink via-neon-purple to-neon-cyan" />
 
                         {TIMELINE.map((item, i) => (
@@ -172,17 +171,15 @@ const About = () => {
                                 transition={{ duration: 0.6, delay: i * 0.1 }}
                                 viewport={{ once: true }}
                             >
-                                {/* Dot on the line */}
                                 <div
                                     className="absolute left-6 md:left-1/2 w-5 h-5 rounded-full border-2 -translate-x-1/2 z-10"
                                     style={{
                                         borderColor: item.color,
-                                        background: '#030014',
+                                        background: '#0a0a1a',
                                         boxShadow: `0 0 10px ${item.color}40`,
                                     }}
                                 />
 
-                                {/* Card */}
                                 <div className={`ml-16 md:ml-0 md:w-[45%] ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                                     <div className="neon-card p-6">
                                         <span className="text-2xl mb-2 block">{item.icon}</span>
@@ -204,7 +201,6 @@ const About = () => {
 
                 {/* Skills Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-                    {/* Hard Skills */}
                     <motion.div
                         className="neon-card p-8"
                         initial={{ opacity: 0, x: -30 }}
@@ -218,7 +214,7 @@ const About = () => {
                             {HARD_SKILLS.map((skill, i) => (
                                 <motion.span
                                     key={skill}
-                                    className="px-3 py-1.5 text-xs font-cyber tracking-wider rounded-lg border border-neon-cyan/20 text-neon-cyan/70 bg-neon-cyan/5 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-[0_0_10px_rgba(0,247,255,0.2)] transition-all duration-300"
+                                    className="px-3 py-1.5 text-xs font-cyber tracking-wider rounded-lg border border-neon-cyan/20 text-neon-cyan/70 bg-neon-cyan/5 hover:border-neon-cyan hover:text-neon-cyan hover:shadow-[0_0_10px_rgba(34,211,238,0.15)] transition-all duration-300"
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: i * 0.03 }}
@@ -231,7 +227,6 @@ const About = () => {
                         </div>
                     </motion.div>
 
-                    {/* Soft Skills */}
                     <motion.div
                         className="neon-card p-8"
                         initial={{ opacity: 0, x: 30 }}
@@ -245,7 +240,7 @@ const About = () => {
                             {SOFT_SKILLS.map((skill, i) => (
                                 <motion.span
                                     key={skill}
-                                    className="px-3 py-1.5 text-xs font-cyber tracking-wider rounded-lg border border-neon-pink/20 text-neon-pink/70 bg-neon-pink/5 hover:border-neon-pink hover:text-neon-pink hover:shadow-[0_0_10px_rgba(255,45,149,0.2)] transition-all duration-300"
+                                    className="px-3 py-1.5 text-xs font-cyber tracking-wider rounded-lg border border-neon-pink/20 text-neon-pink/70 bg-neon-pink/5 hover:border-neon-pink hover:text-neon-pink hover:shadow-[0_0_10px_rgba(232,121,249,0.15)] transition-all duration-300"
                                     initial={{ opacity: 0, scale: 0.8 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: i * 0.05 }}
@@ -275,7 +270,7 @@ const About = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        ⚡ Let's Connect
+                        ✨ Let's Connect
                     </motion.a>
                 </motion.div>
 

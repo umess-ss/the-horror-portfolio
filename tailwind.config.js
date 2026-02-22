@@ -4,98 +4,75 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
-      colors: {
-        // Horror Fire Palette
-        neon: {
-          pink: '#ff1a1a',
-          cyan: '#ff4400',
-          purple: '#cc1100',
-          blue: '#8b0000',
-          green: '#ff6600',
-          yellow: '#ff8800',
-          orange: '#ff3300',
-          red: '#cc0000',
-        },
-        // Core dark theme (horror)
-        void: '#0a0000',
-        abyss: '#150200',
-        nebula: '#1a0300',
-        cosmos: '#200500',
-
-        // Semantic
-        primary: {
-          DEFAULT: '#cc1100',
-          hover: '#ff3300',
-        },
-        secondary: '#8b0000',
-        accent: '#ff4400',
-        bkg: '#0a0000',
-        content: '#e8d0d0',
-        card: 'rgba(20, 2, 2, 0.6)',
-        'card-border': 'rgba(204, 17, 0, 0.3)',
-      },
       fontFamily: {
-        cyber: ['Orbitron', 'sans-serif'],
-        body: ['Rajdhani', 'sans-serif'],
-        sans: ['Inter', 'sans-serif'],
+        cyber: ['"Orbitron"', '"Rajdhani"', 'sans-serif'],
+        body: ['"Inter"', '"Noto Sans"', 'sans-serif'],
       },
-      container: {
-        center: true,
-        padding: "2rem",
-        screens: {
-          "2xl": "1400px",
+      colors: {
+        /* ═══ ANIME AURORA PALETTE ═══ */
+        neon: {
+          pink: '#e879f9',      // Sakura pink / fuchsia
+          cyan: '#22d3ee',      // Aurora cyan
+          purple: '#a78bfa',    // Soft violet
+          blue: '#818cf8',      // Indigo bloom
+          green: '#34d399',     // Emerald glow
+          yellow: '#fbbf24',    // Golden spark
+          orange: '#fb923c',    // Sunset flare
         },
+
+        /* Core theme */
+        void: '#0a0a1a',        // Deep space navy
+        abyss: '#0f0f2e',       // Midnight indigo
+        content: '#e2e8f0',     // Soft white
+        surface: '#1a1a3e',     // Card surfaces
       },
       animation: {
-        'lightning-flash': 'lightning-flash 4s infinite',
-        'neon-pulse': 'neon-pulse 2s ease-in-out infinite alternate',
         'float': 'float 6s ease-in-out infinite',
-        'glitch': 'glitch 2.5s infinite',
-        'energy-ring': 'energy-ring 3s linear infinite',
-        'star-drift': 'star-drift 80s linear infinite',
+        'float-delayed': 'float 6s ease-in-out 3s infinite',
+        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+        'shimmer': 'shimmer 3s linear infinite',
+        'comet': 'comet 8s linear infinite',
+        'gradient-shift': 'gradient-shift 8s ease infinite',
+        'breathe': 'breathe 4s ease-in-out infinite',
+        'aurora-drift': 'aurora-drift 12s ease-in-out infinite',
       },
       keyframes: {
-        'lightning-flash': {
-          '0%, 93%, 100%': { opacity: '0' },
-          '94%': { opacity: '0.5' },
-          '95%': { opacity: '0.15' },
-          '96%': { opacity: '0.7' },
-          '97%': { opacity: '0.2' },
-        },
-        'neon-pulse': {
-          '0%': {
-            textShadow: '0 0 4px #ff1a1a, 0 0 11px #cc0000, 0 0 19px #8b0000',
-          },
-          '100%': {
-            textShadow: '0 0 4px #ff4400, 0 0 11px #ff3300, 0 0 19px #cc1100, 0 0 40px #8b0000',
-          },
-        },
-        'float': {
+        float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
         },
-        'glitch': {
-          '0%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-3px, 3px)' },
-          '40%': { transform: 'translate(-3px, -3px)' },
-          '60%': { transform: 'translate(3px, 3px)' },
-          '80%': { transform: 'translate(3px, -3px)' },
-          '100%': { transform: 'translate(0)' },
+        'pulse-glow': {
+          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.05)' },
         },
-        'energy-ring': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
-        'star-drift': {
-          '0%': { transform: 'translateY(0) translateX(0)' },
-          '100%': { transform: 'translateY(-2000px) translateX(-500px)' },
+        comet: {
+          '0%': { transform: 'translateX(-100vw) translateY(100vh)', opacity: '0' },
+          '5%': { opacity: '1' },
+          '70%': { opacity: '1' },
+          '100%': { transform: 'translateX(100vw) translateY(-100vh)', opacity: '0' },
+        },
+        'gradient-shift': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        breathe: {
+          '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.1)' },
+        },
+        'aurora-drift': {
+          '0%, 100%': { transform: 'translateX(0) translateY(0) rotate(0deg)' },
+          '33%': { transform: 'translateX(30px) translateY(-20px) rotate(5deg)' },
+          '66%': { transform: 'translateX(-20px) translateY(10px) rotate(-3deg)' },
         },
       },
-      backgroundImage: {
-        'grid-pattern': 'linear-gradient(rgba(204, 17, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(204, 17, 0, 0.05) 1px, transparent 1px)',
+      backgroundSize: {
+        '300%': '300% 300%',
       },
     },
   },

@@ -4,9 +4,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
-import NeonCursor from './components/common/NeonCursor';
-import LightningBolt from './components/common/LightningBolt';
-import EnergyParticles from './components/common/EnergyParticles';
+import CometCanvas from './components/common/CometCanvas';
+import ClickRipple from './components/common/ClickRipple';
 import AutoThemeFlip from './components/common/AutoThemeFlip';
 
 function Layout() {
@@ -14,22 +13,20 @@ function Layout() {
         <div className="min-h-screen flex flex-col relative overflow-hidden">
             {/* ═══ ATMOSPHERIC LAYERS ═══ */}
 
-            {/* Dark ember starfield */}
-            <div className="starfield" />
+            {/* Aurora background blobs */}
+            <div className="aurora-bg">
+                <div className="aurora-blob" />
+                <div className="aurora-blob" />
+                <div className="aurora-blob" />
+            </div>
 
-            {/* Fire lightning bolts */}
-            <LightningBolt />
+            {/* Comet animation canvas */}
+            <CometCanvas />
 
-            {/* Floating fire embers */}
-            <EnergyParticles />
+            {/* Click ripple interactivity */}
+            <ClickRipple />
 
-            {/* Lightning flash overlay */}
-            <div className="lightning-overlay" />
-
-            {/* Custom cursor (desktop only) */}
-            <NeonCursor />
-
-            {/* Auto theme flipper */}
+            {/* Theme toggle */}
             <AutoThemeFlip />
 
             {/* ═══ CONTENT ═══ */}
@@ -68,10 +65,10 @@ export default function App() {
                 <Route path="projects" element={<Projects />} />
             </Route>
             <Route path="*" element={
-                <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0000' }}>
+                <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0a1a' }}>
                     <div className="text-center">
                         <h1 className="text-8xl font-cyber font-black gradient-text-anime mb-4">404</h1>
-                        <p className="text-content/40 font-cyber tracking-[4px] uppercase text-sm">Lost in the inferno</p>
+                        <p className="text-content/40 font-cyber tracking-[4px] uppercase text-sm">Lost in the cosmos</p>
                     </div>
                 </div>
             } />

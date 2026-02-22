@@ -12,22 +12,19 @@ const AutoThemeFlip = () => {
         root.classList.remove('light', 'dark');
         root.classList.add(dark ? 'dark' : 'light');
 
-        // Actually change CSS variables for real theme switching
         if (dark) {
-            document.body.style.background = '#0a0000';
-            document.body.style.color = '#e8d0d0';
+            document.body.style.background = '#0a0a1a';
+            document.body.style.color = '#e2e8f0';
         } else {
-            document.body.style.background = '#f5ebe0';
-            document.body.style.color = '#1a0a0a';
+            document.body.style.background = '#fefcf3';
+            document.body.style.color = '#1a1a2e';
         }
     }, []);
 
-    // Apply initial theme
     useEffect(() => {
         applyTheme(isDark);
     }, []);
 
-    // Auto-flip every 5 seconds
     useEffect(() => {
         if (!autoFlip) {
             if (timerRef.current) clearInterval(timerRef.current);
@@ -42,10 +39,10 @@ const AutoThemeFlip = () => {
                 return next;
             });
             setProgress(0);
-        }, 5000);
+        }, 10000);
 
         progressRef.current = setInterval(() => {
-            setProgress(prev => Math.min(prev + 2, 100));
+            setProgress(prev => Math.min(prev + 1, 100));
         }, 100);
 
         return () => {
@@ -54,6 +51,7 @@ const AutoThemeFlip = () => {
         };
     }, [autoFlip, applyTheme]);
 
+    // Single click = toggle theme + go manual PERMANENTLY
     const handleManualToggle = () => {
         setAutoFlip(false);
         setProgress(0);
@@ -62,8 +60,13 @@ const AutoThemeFlip = () => {
             applyTheme(next);
             return next;
         });
-        // Re-enable auto after 15s
-        setTimeout(() => setAutoFlip(true), 15000);
+        // NO setTimeout to re-enable auto — manual stays manual
+    };
+
+    // Double-click = re-enable auto mode (hidden feature for discoverability)
+    const handleDoubleClick = () => {
+        setAutoFlip(true);
+        setProgress(0);
     };
 
     const ringRadius = 22;
@@ -81,18 +84,18 @@ const AutoThemeFlip = () => {
             alignItems: 'center',
             gap: '6px',
         }}>
-            {/* Toggle button */}
             <button
                 onClick={handleManualToggle}
+                onDoubleClick={handleDoubleClick}
                 style={{
                     position: 'relative',
                     width: '52px',
                     height: '52px',
                     borderRadius: '50%',
-                    border: `2px solid ${isDark ? '#cc1100' : '#ff8800'}`,
+                    border: `2px solid ${isDark ? '#a78bfa' : '#7c3aed'}`,
                     background: isDark
-                        ? 'linear-gradient(135deg, rgba(10,0,0,0.9), rgba(40,5,5,0.9))'
-                        : 'linear-gradient(135deg, rgba(255,240,220,0.95), rgba(255,200,150,0.95))',
+                        ? 'linear-gradient(135deg, rgba(10,10,26,0.9), rgba(26,26,62,0.9))'
+                        : 'linear-gradient(135deg, rgba(254,252,243,0.95), rgba(245,240,255,0.95))',
                     cursor: 'pointer',
                     overflow: 'hidden',
                     display: 'flex',
@@ -100,25 +103,24 @@ const AutoThemeFlip = () => {
                     justifyContent: 'center',
                     fontSize: '22px',
                     boxShadow: isDark
-                        ? '0 0 16px rgba(204,17,0,0.4), 0 0 32px rgba(139,0,0,0.2)'
-                        : '0 0 16px rgba(255,136,0,0.4), 0 0 32px rgba(255,136,0,0.2)',
-                    transition: 'all 0.4s ease',
+                        ? '0 0 16px rgba(167,139,250,0.4), 0 0 32px rgba(232,121,249,0.15)'
+                        : '0 0 16px rgba(124,58,237,0.3), 0 0 32px rgba(124,58,237,0.1)',
+                    transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}
             >
                 <span style={{
-                    transition: 'transform 0.4s ease, opacity 0.3s ease',
+                    transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    transform: isDark ? 'rotate(0deg)' : 'rotate(180deg)',
+                    display: 'inline-block',
                 }}>
                     {isDark ? '🌙' : '☀️'}
                 </span>
 
-                {/* Progress ring */}
                 {autoFlip && (
                     <svg
                         style={{
-                            position: 'absolute',
-                            inset: 0,
-                            width: '100%',
-                            height: '100%',
+                            position: 'absolute', inset: 0,
+                            width: '100%', height: '100%',
                             transform: 'rotate(-90deg)',
                         }}
                         viewBox="0 0 52 52"
@@ -126,13 +128,13 @@ const AutoThemeFlip = () => {
                         <circle
                             cx="26" cy="26" r={ringRadius}
                             fill="none"
-                            stroke={isDark ? 'rgba(204,17,0,0.2)' : 'rgba(255,136,0,0.2)'}
+                            stroke={isDark ? 'rgba(167,139,250,0.2)' : 'rgba(124,58,237,0.2)'}
                             strokeWidth="2"
                         />
                         <circle
                             cx="26" cy="26" r={ringRadius}
                             fill="none"
-                            stroke={isDark ? '#cc1100' : '#ff8800'}
+                            stroke={isDark ? '#a78bfa' : '#7c3aed'}
                             strokeWidth="2"
                             strokeDasharray={circumference}
                             strokeDashoffset={offset}
@@ -143,16 +145,15 @@ const AutoThemeFlip = () => {
                 )}
             </button>
 
-            {/* Auto label */}
             <span style={{
                 fontSize: '8px',
                 fontFamily: "'Orbitron', sans-serif",
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
                 color: autoFlip
-                    ? (isDark ? 'rgba(255,68,68,0.6)' : 'rgba(200,80,0,0.6)')
-                    : 'rgba(255,255,255,0.4)',
-                animation: 'pulse-label 2s infinite',
+                    ? (isDark ? 'rgba(167,139,250,0.6)' : 'rgba(124,58,237,0.6)')
+                    : (isDark ? 'rgba(200,200,200,0.4)' : 'rgba(80,80,80,0.5)'),
+                animation: autoFlip ? 'pulse-label 2s infinite' : 'none',
             }}>
                 {autoFlip ? 'AUTO' : 'MANUAL'}
             </span>
